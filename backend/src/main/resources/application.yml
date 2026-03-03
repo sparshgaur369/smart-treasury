@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: ${SUPABASE_DB_URL:jdbc:postgresql://localhost:5432/smarttreasury}
+    username: ${SUPABASE_DB_USER:postgres}
+    password: ${SUPABASE_DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      url: ${UPSTASH_REDIS_URL:redis://localhost:6379}
+      password: ${UPSTASH_REDIS_PASSWORD:}
+      ssl:
+        enabled: ${REDIS_SSL_ENABLED:true}
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.smarttreasury: DEBUG
+    org.springframework.web: INFO
